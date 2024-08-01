@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 
 public class Client {
 
-
   public static void main(String[] args) {
-    PaymentService paymentService = new SimpleExRatePaymentService();
+    ObjectFactory objectFactory = new ObjectFactory();
+    PaymentService paymentService = objectFactory.paymentService();
 
     try {
       Payment payment = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
