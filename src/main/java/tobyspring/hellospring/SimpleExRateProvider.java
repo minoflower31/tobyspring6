@@ -1,7 +1,9 @@
 package tobyspring.hellospring;
 
 import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SimpleExRateProvider implements ExRateProvider {
 
   @Override

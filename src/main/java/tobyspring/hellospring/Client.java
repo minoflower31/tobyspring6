@@ -2,17 +2,29 @@ package tobyspring.hellospring;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Client {
 
   public static void main(String[] args) {
-    ObjectFactory objectFactory = new ObjectFactory();
-    PaymentService paymentService = objectFactory.paymentService();
+    BeanFactory beanFactory = new AnnotationConfigApplicationContext(ObjectFactory.class);
+    PaymentService paymentService = beanFactory.getBean(PaymentService.class);
 
     try {
-      Payment payment = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
-      System.out.println(payment);
-    } catch (IOException e) {
+      Payment payment1 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
+      System.out.println("payment1 = " + payment1);
+
+      Payment payment2 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
+      System.out.println("payment2 = " + payment2);
+
+      TimeUnit.SECONDS.sleep(3);
+
+      Payment payment3 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
+      System.out.println("payment3 = " + payment3);
+    } catch (IOException | InterruptedException e) {
       throw new RuntimeException(e);
     }
   }
