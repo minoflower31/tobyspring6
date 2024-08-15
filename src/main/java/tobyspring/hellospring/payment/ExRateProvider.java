@@ -5,5 +5,5 @@ import java.math.BigDecimal;
 
 public interface ExRateProvider {
 
-  BigDecimal getExchangeDate(String currency) throws IOException;
+  BigDecimal getExchangeRate(String currency) throws IOException;
 }
