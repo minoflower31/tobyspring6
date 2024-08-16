@@ -2,6 +2,7 @@ package tobyspring.hellospring.payment;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,7 @@ public class PaymentService {
     this.clock = clock;
   }
 
-  public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount)
-      throws IOException {
+  public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) {
     BigDecimal exchangeRate = exRateProvider.getExchangeRate(currency);
 
     return Payment.createPrepared(orderId, currency, foreignCurrencyAmount, exchangeRate,

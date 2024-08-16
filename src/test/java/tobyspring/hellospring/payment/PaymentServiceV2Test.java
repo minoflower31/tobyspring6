@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
  * 1. 우리가 제어할수 없는 외부 시스템에 문제가 생기면? 2. ExRateProvider가 제공하는 환율값으로 계산? 3. 환율 유효 시간 계산은 정확해?
  */
 class PaymentServiceV2Test {
+
   Clock clock;
 
   @BeforeEach
@@ -27,15 +28,14 @@ class PaymentServiceV2Test {
 
   @Test
   @DisplayName("prepare 메서드가 요구사항 3가지를 잘 충족하는지 검증한다.")
-  void convertedAmount() throws IOException {
-
+  void convertedAmount() {
     testAmount(BigDecimal.valueOf(500), BigDecimal.valueOf(5_000), this.clock);
     testAmount(BigDecimal.valueOf(1_000), BigDecimal.valueOf(10_000), this.clock);
     testAmount(BigDecimal.valueOf(100), BigDecimal.valueOf(1_000), this.clock);
   }
 
   @Test
-  void validUntil() throws IOException {
+  void validUntil() {
     //Given
     ExRateProvider exRateProvider = new ExRateProviderStub(BigDecimal.valueOf(500));
     PaymentService paymentService = new PaymentService(exRateProvider, clock);
@@ -48,7 +48,7 @@ class PaymentServiceV2Test {
         .isEqualTo(LocalDateTime.now(this.clock).plusMinutes(30));
   }
 
-  private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) throws IOException {
+  private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) {
     //Given
     ExRateProvider exRateProvider = new ExRateProviderStub(exRate);
     PaymentService paymentService = new PaymentService(exRateProvider, clock);

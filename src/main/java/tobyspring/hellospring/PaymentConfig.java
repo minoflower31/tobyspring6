@@ -14,7 +14,7 @@ public class PaymentConfig {
 
   @Bean
   public PaymentService paymentService() {
-    return new PaymentService(exRateProvider(),clock());
+    return new PaymentService(cachedExRateProvider(),clock());
   }
 
   @Bean
@@ -25,7 +25,7 @@ public class PaymentConfig {
   @Bean
   public ExRateProvider exRateProvider() {
     return new WebApiExRateProvider();
-  }//  @Bean
+  }
 
   @Bean
   public ExRateProvider cachedExRateProvider() {

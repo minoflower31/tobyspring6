@@ -2,6 +2,7 @@ package tobyspring.hellospring;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -26,7 +27,7 @@ public class Client {
 
       Payment payment3 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
       System.out.println("payment3 = " + payment3);
-    } catch (IOException | InterruptedException e) {
+    } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
   }

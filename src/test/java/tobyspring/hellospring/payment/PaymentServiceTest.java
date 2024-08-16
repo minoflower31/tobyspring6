@@ -18,7 +18,7 @@ class PaymentServiceTest {
 
   @Test
   @DisplayName("prepare 메서드가 요구사항 3가지를 잘 충족하는지 검증한다.")
-  void prepare() throws IOException {
+  void prepare() {
     //Given
     Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     ExRateProvider webApiExRateProvider = new WebApiExRateProvider();
