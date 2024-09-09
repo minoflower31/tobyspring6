@@ -1,14 +1,13 @@
 package tobyspring.hellospring.payment;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tobyspring.hellospring.api.ApiTemplate;
 import tobyspring.hellospring.exrate.WebApiExRateProvider;
 
 /**
@@ -21,7 +20,7 @@ class PaymentServiceTest {
   void prepare() {
     //Given
     Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    ExRateProvider webApiExRateProvider = new WebApiExRateProvider();
+    ExRateProvider webApiExRateProvider = new WebApiExRateProvider(new ApiTemplate());
     PaymentService paymentService = new PaymentService(webApiExRateProvider, clock);
 
     //When
