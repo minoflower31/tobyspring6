@@ -17,19 +17,23 @@ public class JdbcOrderRepository implements OrderRepository {
   @PostConstruct
   void initDb() {
     jdbcClient.sql("""
-        create table orders(id bigint not null, orderNumber varchar(255) not null, totalPrice  numeric(38, 2), primary key (id));
-        alter table if exists orders drop constraint if exists UKt5ee3vjmonruwsp9g423dhrek;
-        alter table if exists orders add constraint UKt5ee3vjmonruwsp9g423dhrek unique (orderNumber);
-        create sequence orders_SEQ start with 1 increment by 50;
-        """)
+            create table orders(id bigint not null, orderNumber varchar(255) not null, totalPrice  numeric(38, 2), primary key (id));
+            alter table if exists orders drop constraint if exists UKt5ee3vjmonruwsp9g423dhrek;
+            alter table if exists orders add constraint UKt5ee3vjmonruwsp9g423dhrek unique (orderNumber);
+            create sequence orders_SEQ start with 1 increment by 50;
+            """)
         .update();
   }
 
   @Override
   public void save(Order order) {
-    Long id = jdbcClient.sql("select next value for orders_SEQ")
-        .query(Long.class).single();
+    Long id = jdbcClient.sql("select next value for orders_SEQ;")
+        .query(Long.class)
+        .single();
+    order.setId(id);
 
-    System.out.println(id);
+    jdbcClient.sql("insert into orders values (?, ?, ?)")
+        .params(order.getId(), order.getOrderNumber(), order.getTotalPrice())
+        .update();
   }
 }
